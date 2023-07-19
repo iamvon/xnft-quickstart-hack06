@@ -9,6 +9,7 @@ import { useFonts, Inter_900Black } from "@expo-google-fonts/dev";
 import { ExamplesScreens } from "./screens/ExamplesScreen";
 import { HomeScreen } from "./screens/HomeScreen";
 import { TokenListNavigator } from "./screens/TokenNavigator";
+import { NftScreen } from "./screens/NftScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +49,16 @@ function TabNavigator() {
           tabBarLabel: "Examples",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="NFT"
+        component={NftScreen}
+        options={{
+          tabBarLabel: "NFT",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="map" color={color} size={size} />
           ),
         }}
       />
