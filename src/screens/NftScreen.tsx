@@ -1,10 +1,10 @@
-import { Text, FlatList, Image, Button } from "react-native";
+import { Text, Image, Button, View } from "react-native";
 import tw from "twrnc";
 
 import { Screen } from "../components/Screen";
 import { useEffect, useState } from "react";
 import { usePublicKeys, useSolanaConnection } from "../hooks/xnft-hooks";
-import { PublicKey, SystemProgram, Transaction, sendAndConfirmTransaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { PublicKey, SystemProgram, Transaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { Buffer } from "buffer";
 
 export function NftScreen() {
@@ -13,11 +13,11 @@ export function NftScreen() {
     let connection = useSolanaConnection()
 
     async function getNftInfo() {
-        const url = "https://api.shyft.to/sol/v1/nft/read?network=mainnet-beta&token_address=EX5vXEJDY3KzrrN81CZyAKXBELWUz5NzoU9EGxifdrmW"
+        const url = "https://api.shyft.to/sol/v1/nft/read?network=devnet&token_address=Ddq6ecXkGux7UrntjFtQVE6AS4Tki22a4z4C4nFZJYqp"
         let resp = await fetch(url, {
             method: "GET",
             headers: {
-                "x-api-key": "pWKU1AHTPeN8Exco"
+                "x-api-key": "YOUR_SHYFT_API_KEY_HERE"
             }
         })
         return await resp.json()
@@ -67,9 +67,11 @@ export function NftScreen() {
     let pk = pks ? new PublicKey(pks?.solana) : undefined
     return (
         <Screen>
-            <Image source={{ uri: imageUri }} style={tw`w-36 h-36 rounded m-4`} />
+            <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                <Image source={{ uri: imageUri }} style={tw`w-80 h-80 alignItems: "center" rounded m-4`} />
+            </View>
             <Text style={tw`mb-4`}>
-                Your pubkeys: {pk?.toBase58()}
+                Your solana pubkey: {pk?.toBase58()}
             </Text>
             <Button title="Transfer SOL" onPress={() => transferSol(pk)} />
         </Screen>
